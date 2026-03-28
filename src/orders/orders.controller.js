@@ -3,7 +3,7 @@ const path = require("path");
 // Use the existing order data
 const orders = require(path.resolve("src/data/orders-data"));
 
-// Use this function to assigh ID's when necessary
+// Use this function to assign IDs when necessary
 const nextId = require("../utils/nextId");
 
 const VALID_STATUSES = ["pending", "preparing", "out-for-delivery", "delivered"];
@@ -46,11 +46,11 @@ function validateOrderData(request, response, next) {
 		return next({ status: 400, message: "Order must include a mobileNumber" });
 	}
 
-	if (!Array.isArray(data.dishes)) {
+	if (!data.dishes) {
 		return next({ status: 400, message: "Order must include a dish" });
 	}
 
-	if (!data.dishes.length) {
+	if (!Array.isArray(data.dishes) || !data.dishes.length) {
 		return next({ status: 400, message: "Order must include at least one dish" });
 	}
 
@@ -60,7 +60,7 @@ function validateOrderData(request, response, next) {
 		if (!Number.isInteger(dish.quantity) || dish.quantity <= 0) {
 			return next({
 				status: 400,
-				message: `Dish ${index} must have a quantity that is an integer greater than 0`,
+				message: `dish ${index} must have a quantity that is an integer greater than 0`,
 			});
 		}
 	}
