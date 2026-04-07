@@ -1,15 +1,14 @@
 const express = require("express");
 const cors = require("cors");
+const morgan = require("morgan");
+const app = express();
 
 const errorHandler = require("./errors/errorHandler");
 const notFound = require("./errors/notFound");
 const ordersRouter = require("./orders/orders.router");
 const dishesRouter = require("./dishes/dishes.router");
 
-const app = express();
-
-// You have not learned about CORS yet.
-// The following line let's this API be used by any website.
+app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
 
